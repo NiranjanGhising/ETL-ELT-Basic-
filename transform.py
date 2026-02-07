@@ -1,13 +1,29 @@
+import pandas as pd
+import logging
+
+logger = logging.getLogger(__name__)
+
 def transform(data_frame, value):
+    
     '''
     Transforms the dataframe and only include the title and genre column for specific title
     
     Args:
-        data_fram(csv file): takes csv file 
-        Value(str): takes the title name
+        data_frame(dataframe): takes dataframe
+        value(str): takes the title name
     
     Returns:
-            CSV file with only title and genre column for specific value
-            
+            dataframe with only title and genre column for specific value
+
     '''
-    return data_frame.loc[data_frame['title']== value, ['title', 'genre']]
+    try:
+        
+        if data_frame['title'].isin([value]).any():
+            logger.info("Successfully Transformed.")
+            return data_frame.loc[data_frame['title']== value, ['title', 'genre']]
+        else:
+            logger.error(f"Title not found:{value}")
+        
+
+    except Exception as e:
+        logger.error(f"Transform Failed.:{e}")

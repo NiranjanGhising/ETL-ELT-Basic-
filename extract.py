@@ -1,13 +1,28 @@
 import pandas as pd
-def extract(filename):
-    '''
-    Takes the csv file and give few rows of the file
-    ARGS:
-        filename: takes csv file.
+import logging
 
-    Result: reads the file and give few rows of the specific csv file.
+logger = logging.getLogger(__name__)
+
+def extract(data_frame):
     '''
-    print(f"extracting the file:{filename}")
-    data_frame = pd.read_csv("netflix_data.csv")
-    return data_frame.head()
+    Takes the csv file and give few rows of the dataframe
+    ARGS:
+        filename: takes dataframe.
+
+    Result: reads the file of the specific dataframe.
+    '''
+
+    try:
+        data_frame = pd.read_csv(data_frame)
+        logger.info("Successfully extracted.\n")
+        return data_frame
+    except FileNotFoundError:
+        logger.error(f"File Not Found :{data_frame}")
+        raise
+
+    except Exception as e:
+        logger.critical(f"Unexpected error during extraction: {e}")
+        raise
+
+
 
