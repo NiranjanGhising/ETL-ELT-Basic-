@@ -1,6 +1,6 @@
-import extract
-import transform
-import load
+import ETL.CSV.extract as extract
+import ETL.CSV.transform as transform
+import ETL.CSV.load as load
 import logging
 
 logging.basicConfig(
